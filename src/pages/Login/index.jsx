@@ -1,31 +1,18 @@
 import React, { Component } from 'react'
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import axios from 'axios'
-import qs from 'querystring'
+import {reqLogin} from '../../api'
 
 import './login.less'
 import logo from './imgs/logo.png'
 
-  // axios请求拦截器
-  axios.interceptors.request.use((config)=>{
-    //转换成urlencoded
-    const { method,data} = config
-    if (method.toLowerCase() === 'post' && data instanceof Object) {
-      config.data = qs.stringify(data)
-    }
-    return config
-  })
-  // axios响应拦截器
 
 export default class index extends Component {
 
   //表单提交并且验证成功的回调
-  onFinish = values => {
-    axios.post('http://localhost:3000/login',values).then(
-      response => {console.log(response);},
-      error => {console.log(error);}
-    )
+  onFinish =async values => {
+    let reslut = await reqLogin(values)
+    console.log(reslut);
   };
 
   //用户名验证规则
