@@ -1,13 +1,19 @@
+//react 和 antd 插件库
 import React, { Component } from 'react'
 import { Form, Input, Button, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import {reqLogin} from '../../api'
 
+//redux 引入插件库
+import {connect} from 'react-redux'
+import {saveUserInfo} from '../../redux/actions/login'
+//-------------
+// 自定义
+import {reqLogin} from '../../api'
 import './login.less'
 import logo from './imgs/logo.png'
 
 
-export default class index extends Component {
+class Login extends Component { 
 
   //表单提交并且验证成功的回调
   onFinish =async values => {
@@ -17,6 +23,10 @@ export default class index extends Component {
     if (status === 0) {
       message.success('登录成功！')
       console.log(data);
+
+      this.props.saveUserInfo(data)
+      this.props.history.replace('/admin')
+
     }else{
       message.error(msg)
     }
@@ -104,3 +114,9 @@ export default class index extends Component {
     )
   }
 }
+
+// 创建  容器 组件
+export default connect(
+  ()=>({}),
+  {saveUserInfo}
+)(Login)
