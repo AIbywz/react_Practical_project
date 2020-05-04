@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import { Form, Input, Button, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import {Redirect} from 'react-router-dom'
 
 //redux 引入插件库
 import {connect} from 'react-redux'
@@ -22,7 +23,6 @@ class Login extends Component {
     const { status,data,msg } = reslut
     if (status === 0) {
       message.success('登录成功！')
-      console.log(data);
 
       this.props.saveUserInfo(data)
       this.props.history.replace('/admin')
@@ -73,6 +73,8 @@ class Login extends Component {
   }
 
   render() {
+    //登陆成功后
+    if(this.props.isLogin) return <Redirect to="/admin"/>
     return (
       <div id="login">
         <header>
@@ -117,6 +119,6 @@ class Login extends Component {
 
 // 创建  容器 组件
 export default connect(
-  ()=>({}),
+  (state)=>({isLogin: state.userInfo.isLogin}),
   {saveUserInfo}
 )(Login)
