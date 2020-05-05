@@ -3,23 +3,24 @@
 import React, { Component } from 'react'
 //redux
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
 
 //antd 
 import { Layout } from "antd";
 //自定义
 import './admin.less'
 import Header from './Header/Header'
+import check from '@/containers/HOC/check'
 
 const { Footer, Sider, Content } = Layout;
 
-
-
+@connect(
+  (state)=>({isLogin:state.userInfo.isLogin}),
+  {}
+)
+@check
 class Admin extends Component {
   render() {
-    if (!this.props.isLogin) {
-      return <Redirect to="/login" />
-    }
+    //没有登录时
     return (
       <Layout className="layout-style">
         <Sider>Sider</Sider>
@@ -33,7 +34,4 @@ class Admin extends Component {
   }
 }
 
-export default connect(
-  (state)=>({isLogin:state.userInfo.isLogin}),
-  {}
-)(Admin)
+export default Admin

@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { Form, Input, Button, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import {Redirect} from 'react-router-dom'
+import check from '@/containers/HOC/check'
 
 //redux 引入插件库
 import {connect} from 'react-redux'
@@ -13,7 +13,11 @@ import {reqLogin} from '../../api'
 import './login.less'
 import logo from './imgs/logo.png'
 
-
+@connect(
+  (state)=>({isLogin: state.userInfo.isLogin}),
+  {saveUserInfo}
+)
+@check
 class Login extends Component { 
 
   //表单提交并且验证成功的回调
@@ -74,7 +78,6 @@ class Login extends Component {
 
   render() {
     //登陆成功后
-    if(this.props.isLogin) return <Redirect to="/admin"/>
     return (
       <div id="login">
         <header>
@@ -117,8 +120,4 @@ class Login extends Component {
   }
 }
 
-// 创建  容器 组件
-export default connect(
-  (state)=>({isLogin: state.userInfo.isLogin}),
-  {saveUserInfo}
-)(Login)
+export default Login
