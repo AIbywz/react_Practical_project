@@ -1,6 +1,6 @@
 //创建 login的 reducer 
 
-import {SAVE_USERINFO,DELETE_USERINFO} from '../actions_type'
+import {SAVE_USERINFO} from '../actions_type'
 
 let _user
 try{
@@ -23,9 +23,6 @@ export default function (preState=initState,action) {
   switch (type) {
     case SAVE_USERINFO:
       newState = {...data,isLogin:true}
-      return newState
-    case DELETE_USERINFO:
-      newState = {user:{},token:''}
       return newState
     default:
       return preState

@@ -1,6 +1,19 @@
+
+
 import React, { Component } from 'react'
+//redux
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+
+//antd 
+import { Layout } from "antd";
+//自定义
+import './admin.less'
+import Header from './Header/Header'
+
+const { Footer, Sider, Content } = Layout;
+
+
 
 class Admin extends Component {
   render() {
@@ -8,17 +21,19 @@ class Admin extends Component {
       return <Redirect to="/login" />
     }
     return (
-      <div>
-        Admin,{this.props.username}
-      </div>
+      <Layout className="layout-style">
+        <Sider>Sider</Sider>
+        <Layout>
+          <Header />
+          <Content>Content</Content>
+          <Footer>Footer</Footer>
+        </Layout>
+    </Layout>
     )
   }
 }
 
 export default connect(
-  (state)=>({
-    username:state.userInfo.user.username,
-    isLogin:state.userInfo.isLogin
-  }),
+  (state)=>({isLogin:state.userInfo.isLogin}),
   {}
 )(Admin)

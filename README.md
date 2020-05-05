@@ -13,6 +13,8 @@ day03
    1) 插件库使用： redux , react-redux , 
                redux-devtools-extension , 
                redux-thunk , 中间件
+               dayjs / momentjs:  时间插件。
+               screenfull : 
    2) 搭建redux环境
       1. Provider的使用：只要把需要使用store的组件（通常是App根组件）包裹起来就可以。       Provider组件有一个属性store，其接收一个用户定义的js对象作为store，给所有子组件提state；
       2. 创建 store-核心的状态储存容器 （同时包含 reducer）

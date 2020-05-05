@@ -7,9 +7,9 @@ import Nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
 
 // 配置默认路径
-axios.defaults.baseURL = '/api'
+axios.defaults.baseURL = 'http://localhost:3000'
 //配置默认请求超时时间
-axios.defaults.timeout = 2000
+axios.defaults.timeout = 1000
 
  // axios请求拦截器
  axios.interceptors.request.use((config)=>{
