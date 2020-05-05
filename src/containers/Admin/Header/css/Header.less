@@ -19,6 +19,21 @@
       line-height: 40px;
       font-size: 20px;
       text-align: center;
+      position: relative;
+      &::after{
+        content: '';
+        display: block;
+        position: absolute;
+        top: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40px;
+        height: 40px;
+        border-top: 20px solid white;
+        border-bottom: 20px solid transparent;
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
+      }
     }
     .bottom-right{
       width: 75%;

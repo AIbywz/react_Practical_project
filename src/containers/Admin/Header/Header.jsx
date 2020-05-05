@@ -6,13 +6,16 @@ import { FullscreenOutlined,FullscreenExitOutlined ,ExclamationCircleOutlined } 
 
 import screenfull from 'screenfull'
 import { connect } from 'react-redux';
+import dayjs from 'dayjs'
+
 import {deleteUserInfo} from '@/redux/actions/login'
 
 const { confirm } = Modal;
 
  class Header extends Component {
   state = {
-    isFull : false
+    isFull : false,
+    time:dayjs().format('YYYY年 MM月DD日 HH:mm:ss')
   }
   //切换全屏/不全屏
   toggleFullscreen = ()=>{
@@ -41,11 +44,20 @@ const { confirm } = Modal;
       const {isFull} = this.state
       this.setState({isFull:!isFull})
     })
+
+    //开启定时器 检测 时间
+    this.tirm =  setInterval(()=>{
+      this.setState({time:dayjs().format('YYYY年 MM月DD日 HH:mm:ss')})
+    },1000)
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.tirm)
   }
 
   render() {
     const {username} = this.props
-    const {isFull} = this.state
+    const {isFull,time} = this.state
     return (
       <div className="header">
         <div className="header-top">
@@ -60,7 +72,7 @@ const { confirm } = Modal;
             <span>首页</span>
           </div>
           <div className="bottom-right">
-            <span>2020年5月5日00：00：00</span>
+            <span>{time}</span>
             <img src="http://api.map.baidu.com/images/weather/day/qing.png" alt="天气logo"/>
             <span>多云转晴</span>
             <span>温度：1~10℃</span>
