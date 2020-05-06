@@ -9,13 +9,15 @@ import { connect } from 'react-redux';
 import dayjs from 'dayjs'
 
 import {deleteUserInfo} from '@/redux/actions/login'
+import { reqWeatherDate } from '@/api';
 
 const { confirm } = Modal;
 
  class Header extends Component {
   state = {
     isFull : false,
-    time:dayjs().format('YYYY年 MM月DD日 HH:mm:ss')
+    time:dayjs().format('YYYY年 MM月DD日 HH:mm:ss'),
+    weatherDate:{}
   }
   //切换全屏/不全屏
   toggleFullscreen = ()=>{
@@ -37,6 +39,13 @@ const { confirm } = Modal;
     });
   }
 
+  //发送请求的回调
+  getWeather = async () => {
+    let result = await reqWeatherDate()
+    const { weather,temperature,dayPictureUrl } = result
+    this.setState({weatherDate:{weather,temperature,dayPictureUrl}})
+  }
+
   componentDidMount(){
 
     //检测屏幕的变化
@@ -49,6 +58,9 @@ const { confirm } = Modal;
     this.tirm =  setInterval(()=>{
       this.setState({time:dayjs().format('YYYY年 MM月DD日 HH:mm:ss')})
     },1000)
+
+    //在组件挂载时发送天气请求
+    // this.getWeather()
   }
 
   componentWillUnmount(){
@@ -57,7 +69,7 @@ const { confirm } = Modal;
 
   render() {
     const {username} = this.props
-    const {isFull,time} = this.state
+    const {isFull,time ,weatherDate} = this.state
     return (
       <div className="header">
         <div className="header-top">
@@ -74,8 +86,8 @@ const { confirm } = Modal;
           <div className="bottom-right">
             <span>{time}</span>
             <img src="http://api.map.baidu.com/images/weather/day/qing.png" alt="天气logo"/>
-            <span>多云转晴</span>
-            <span>温度：1~10℃</span>
+            <span>{weatherDate.weather}</span>
+            <span>温度：{weatherDate.temperature}</span>
           </div>
         </div>
       </div>
