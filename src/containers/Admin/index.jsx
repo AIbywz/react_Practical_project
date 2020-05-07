@@ -13,7 +13,7 @@ import check from '@/containers/HOC/check'
 import LeftNav from './LeftNav/LeftNav'
 
 
-import Home from './Home/Home'
+import Home from '@/components/Home/Home'
 import User from './User/User'
 import Role from './Role/Role'
 import Category from './Category/Category'
@@ -39,7 +39,7 @@ class Admin extends Component {
         </Sider>
         <Layout>
           <Header />
-          <Content>
+          <Content className="content">
             <Switch>
               <Route path="/admin/home" component={Home}/>
               <Route path="/admin/user" component={User}/>
@@ -52,7 +52,9 @@ class Admin extends Component {
               <Redirect to="/admin/home" />
             </Switch>
           </Content>
-          <Footer>Footer</Footer>
+          <Footer className="footer">
+            <h1>推荐使用谷歌浏览器，获取最佳用户体验</h1>
+          </Footer>
         </Layout>
     </Layout>
     )

@@ -3,7 +3,7 @@ import './css/Header.less'
 
 import { Button,Modal } from 'antd';
 import { FullscreenOutlined,FullscreenExitOutlined ,ExclamationCircleOutlined } from '@ant-design/icons';
-
+import { saveTitle } from "@/redux/actions/title";
 import screenfull from 'screenfull'
 import { connect } from 'react-redux';
 import dayjs from 'dayjs'
@@ -35,6 +35,7 @@ const { confirm } = Modal;
       okText:'确定',
       onOk:() => {
         this.props.deleteUserInfo()
+        this.props.saveTitle('')
       },
     });
   }
@@ -100,5 +101,5 @@ export default connect(
     username:state.userInfo.user.username,
     title: state.title
   }),
-  {deleteUserInfo}
+  {deleteUserInfo,saveTitle}
   )(Header)

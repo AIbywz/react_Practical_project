@@ -5,6 +5,9 @@ import { message as msg } from "antd";
 
 import Nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
+import store from '@/redux/store'
+import { deleteUserInfo } from "@/redux/actions/login";
+import { saveTitle } from '@/redux/actions/title';
 
 // 配置默认路径
 axios.defaults.baseURL = '/api'
@@ -19,6 +22,14 @@ axios.defaults.timeout = 2000
   if (method.toLowerCase() === 'post' && data instanceof Object) {
     config.data = qs.stringify(data)
   }
+
+  //如果存在token，那就携带token
+    //在redux 中获取token
+    const {token} = store.getState().userInfo
+    if (token) {
+      config.headers.Authorization =  'atguigu_'+token
+    }
+  //必须返回配置对象
   return config  
 })
 // axios响应拦截器
@@ -40,6 +51,10 @@ axios.interceptors.response.use(
     }else if (message.indexOf('Network') !== -1) {
       errmsg = '无网络，请检查网络连接'
     }else if (message.indexOf('401') !== -1) {
+
+      //强制退出登录
+      store.dispatch(deleteUserInfo())
+      store.dispatch(saveTitle)
       errmsg = '未登录或身份过期，请重新登录'
     }
     msg.error(errmsg)
