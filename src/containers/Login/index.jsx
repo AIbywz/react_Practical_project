@@ -11,7 +11,7 @@ import {saveUserInfo} from '../../redux/actions/login'
 // 自定义
 import {reqLogin} from '../../api'
 import './login.less'
-import logo from './imgs/logo.png'
+import logo from '@/state/images/logo.png'
 
 @connect(
   (state)=>({isLogin: state.userInfo.isLogin}),

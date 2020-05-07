@@ -10,6 +10,7 @@ import { Layout } from "antd";
 import './admin.less'
 import Header from './Header/Header'
 import check from '@/containers/HOC/check'
+import LeftNav from './LeftNav/LeftNav'
 
 const { Footer, Sider, Content } = Layout;
 
@@ -23,7 +24,9 @@ class Admin extends Component {
     //没有登录时
     return (
       <Layout className="layout-style">
-        <Sider>Sider</Sider>
+        <Sider>
+          <LeftNav />
+        </Sider>
         <Layout>
           <Header />
           <Content>Content</Content>
