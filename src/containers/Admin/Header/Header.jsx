@@ -81,7 +81,7 @@ const { confirm } = Modal;
         </div>
         <div className="header-bottom">
           <div className="bottom-left">
-            <span>首页</span>
+            <span>{this.props.title}</span>
           </div>
           <div className="bottom-right">
             <span>{time}</span>
@@ -96,6 +96,9 @@ const { confirm } = Modal;
 }
 
 export default connect(
-  (state) => ({username:state.userInfo.user.username}),
+  (state) => ({
+    username:state.userInfo.user.username,
+    title: state.title
+  }),
   {deleteUserInfo}
   )(Header)
