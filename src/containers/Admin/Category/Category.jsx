@@ -2,13 +2,12 @@
 import React, { Component } from 'react'
 import { Card,Table, Button ,Modal,Form,Input} from "antd";
 import { PlusCircleFilled } from '@ant-design/icons'
-import {reqCategoryList} from '@/api'
 import { connect } from 'react-redux';
-import { saveCategory } from '@/redux/actions/category'
+import { saveCategoryAsync } from '@/redux/actions/category'
 
 @connect(
   (state)=>({categoryList: state.categoryList}),
-  {saveCategory}
+  {saveCategoryAsync}
 )
  class Category extends Component {
   state = { 
@@ -29,19 +28,10 @@ import { saveCategory } from '@/redux/actions/category'
     this.setState({visible: false,});
   };
 
-  //获取分类列表
-  getCategoryList =async () =>{
-    let result = await reqCategoryList()
-    const { status,data } = result
-    console.log(result);
-    if (status === 0) {
-      // 存入redux
-      this.props.saveCategory(data)
-      // this.setState({categoryList:data})
-    }
-  }
+  
    componentDidMount(){
-    this.getCategoryList()
+     //获取分类列表
+    this.props.saveCategoryAsync()
   }
 
   render() {
