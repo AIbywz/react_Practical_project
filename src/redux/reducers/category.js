@@ -9,7 +9,7 @@ export default function (preState=initState,action) {
   let newState //定义新状态
   switch (type) {
     case SAVE_CATEGORY:
-      newState = [...data]
+      newState = [...data].reverse()
       return newState
     default:
       return preState
